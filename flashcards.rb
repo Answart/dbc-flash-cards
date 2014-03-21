@@ -33,30 +33,29 @@ class Controller
   def self.start_game
     View.welcome
     # Repleace line below with @deck_test = Deck.start()
-    @master_deck = [{"what is a greeting?" => "hello" }, {"what is a another greeting?" => "hi" }]
-    @master_deck.shuffle!
+    game = Deck.new
+    @deck = game.flash_cards
+    @deck.shuffle!
     @scores = Array.new(2){0}
-    View.continue_game(@master_deck.first.keys[0])
+    View.continue_game(@deck.first.keys[0])
     View.print_score(@scores)
   end
 
   def self.check_answer(user_answer)
-    if user_answer.upcase == @master_deck.first.values[0].upcase #deck.card.guess   #need to access guess attribute in Card Class
+    if user_answer.upcase == @deck.first.values[0].upcase #deck.card.guess   #need to access guess attribute in Card Class
       View.correct_answer
-      @master_deck.shift
+      @deck.shift
       @scores[0] += 1
-      unless @master_deck.empty?
-        View.continue_game(@master_deck.first.keys[0])
+      unless @deck.empty?
+        View.continue_game(@deck.first.keys[0])
       end
     else
       View.incorrect_answer
-      View.continue_game (@master_deck.first.keys[0])
+      View.continue_game (@deck.first.keys[0])
       @scores[1] += 1
     end
   end
 end
-
-
 
 class Deck
   attr_accessor :players, :flash_cards
@@ -94,8 +93,6 @@ class Player
   end
 end
 
-new_deck = Deck.new
-p new_deck
 
 Controller.start_game
 
