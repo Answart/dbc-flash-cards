@@ -1,23 +1,46 @@
 class View
+  attr_reader :deck_choice, :which_deck, :chosen
 
   def self.welcome
     puts "Welcome to Ruby Flash Cards. To play, just enter the correct term for each definition.  Ready?  Go!"
     sleep(0.3)
   end
 
+  def self.which_deck
+    puts "-"*50
+    puts "Which game would you like to play?"
+    puts " --- easy (flashcard_easy.txt)"
+    puts " --- hard (flashcard_samples.txt)"
+    puts "-"*50
+    deck_choice = gets.chomp!
+    chosen_deck(deck_choice)
+  end
+
+  def self.chosen_deck(decision)
+    if decision == "easy"
+      chosen = 'flashcard_easy.txt'
+    elsif decision == "hard"
+      chosen = 'flashcard_samples.txt'
+    else
+      puts "Please choose a deck to play from the options above"
+      which_deck
+    end
+    puts "You have chosen #{chosen}! Good luck!"
+    return chosen
+  end
+
   def self.continue_game (definition)
     puts "#{definition}"
     user_input = gets.chomp
-    puts
     Controller.check_answer(user_input)
   end
 
   def self.correct_answer
-    puts "Correct!"
+    puts "-- Correct!\n\n"
   end
 
   def self.incorrect_answer
-    puts "Incorrect! Try again:"
+    puts "-- Incorrect! Try again:\n\n"
   end
 
   def self.print_score(scores)
@@ -32,8 +55,10 @@ class Controller
 
   def self.start_game
     View.welcome
+    textfile = View.which_deck
+
+    game = Deck.new(textfile)
     # Repleace line below with @deck_test = Deck.start()
-    game = Deck.new
     @deck = game.flash_cards
     @deck.shuffle!
     @scores = Array.new(2){0}
