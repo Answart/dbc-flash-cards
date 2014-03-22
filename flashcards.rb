@@ -56,11 +56,9 @@ class Controller
   def self.start_game
     View.welcome
     textfile = View.which_deck
-
     game = Deck.new(textfile)
-    # Repleace line below with @deck_test = Deck.start()
+    
     @deck = game.flash_cards
-    @deck.shuffle!
     @scores = Array.new(2){0}
     View.continue_game(@deck.first.keys[0])
     View.print_score(@scores)
@@ -103,9 +101,9 @@ class Deck
     end
 
     @definitions.each_with_index do |definition, index|
-      @flash_cards << {definition => @terms[index]}
+      @flash_cards << { definition => @terms[index] }
     end
-    @flash_cards
+    @flash_cards.shuffle!
   end
 end
 
@@ -120,57 +118,3 @@ end
 
 
 Controller.start_game
-
-
-# txtfile = File.open('flashcard_samples.txt') do |card|
-#   card.each do |line|
-#     key = line.chomp.split("\n")
-#     nextline = line.next
-#     hash[key] = nextline.chomp.split("\n")
-#   end
-# end
-# p hash
-
-
-# class Deck
-#   def initialize(txtfile = 'flashcard_samples.txt')
-#     @txtfile = txtfile
-#     @all_cards = []
-
-
-
-#   end
-# end
-
-
-# class Card
-#   def initialize
-
-#   end
-# end
-
-
-  #   @flash_cards = Hash[@definitions.zip(@terms)]
-
-
-
-
-
-    # flash_cards = []
-# definitions = []
-# terms = []
-
-
-# # big_array.each_with_index do |element, index|
-# #   definitions << element if index.even?
-# #   terms << element if index.odd?
-# # end
-
-
-# big_array.each_with_index do |element, index|
-#   index.even? ? definitions << element : terms << element
-# end
-
-
-# flash_cards = definitions.zip(terms)
-# p Hash[flash_cards]
