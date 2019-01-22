@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/4269260/51513195-6d85fc80-1dbe-11e9-8e41-e1162a2876bb.png" width="450">
+</p>
+
 # DBC Flash Cards
 
 An interactive terminal game made in Ruby. Game created while @ DevBootcamp.
